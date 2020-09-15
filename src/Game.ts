@@ -1,67 +1,33 @@
+import { Grid } from './Grid'
+import { Tile } from './Tile'
 
-/**
- * Defines the parameters required to 
- * define a grid 
- */
-interface GridSize {
-  x: number, 
-  y: number 
-}
-
-
-class Game {
+export class Game {
   Grid: Grid 
   moves: number 
-  constructor(gridSize: GridSize, defaultValue = {}) {
-    this.Grid = new Grid(gridSize, defaultValue)
-  }
 
   /**
-   * Generates a new tile with a random position 
-   */
-  newTile() {
-    return {
-      x: Math.floor(Math.random() * this.Grid.size.x), 
-      y: Math.floor(Math.random() * this.Grid.size.y), 
-      value: Math.random() < 0.75 ? 2 : 4 
-    }
-  }
-
-  /**
-   * Determines if the queried position has a value 
-   * @param x x-axis coordinate
-   * @param y y-axis coordinate 
-   */
-  hasValue(x: number, y: number) {
-    return this.Grid.values[x][y] ? true : false
-  }
-
-  placeTile
-
-  
-
-}
-
-class Grid {
-  size: GridSize
-  values:Array<Array<any>>
-  moves: number 
-  
-  /**
-   * Constructs a grid of the provided grid size 
-   * filling each cell a provided default value 
-   * 
-   * defaults to a 4x4 grid 
-   * @param gridSize 
+   * Creates a new Game
+   *  1. Constructs a new Gameboard with the parameters provided 
+   * @param x 
+   * @param y 
    * @param defaultValue 
    */
-  constructor(gridSize: GridSize={x: 4, y: 4}, defaultValue={}) {
-    // create the grid 
-    this.size = gridSize
-    this.values = Array.from(Array(gridSize.x), () =>
-      new Array(gridSize.y).fill({ value: ({} = defaultValue) })
-    )
-    this.moves = 0 
+  constructor(x=4,y=4) {
+    this.Grid = new Grid(x, y)
   }
+
+  /**
+   * Generates a random new tile 
+   */
+  newTile() {
+    const x = Math.floor(Math.random() * this.Grid.size.x) 
+    const y = Math.floor(Math.random() * this.Grid.size.y) 
+    const value = Math.random() < 0.75 ? 2 : 4
+    return new Tile(x, y, value)
+  }
+
+
+
   
 }
+
