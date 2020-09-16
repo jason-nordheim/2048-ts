@@ -14,7 +14,7 @@ export class Game {
    * @param y 
    * @param defaultValue 
    */
-  constructor(x=4,y=4) {
+  constructor(x=4,y=4){
     this.board = new Board(x, y) 
   }
 
@@ -22,7 +22,7 @@ export class Game {
    * Generates a random new tile until the coordinates 
    * match the baord 
    */
-  private placeNew() {
+  private placeNew = () => {
     /* validate game status */
     if (this.status === GameStatus.Complete) {
       throw new Error("Cannot place piece on completed board");
@@ -41,13 +41,13 @@ export class Game {
     }
 
     /* otherwise, place the new tile on the board */
-    return this.board.placeTile(new Tile(x, y, value));
+    return this.board.place(new Tile(x, y, value));
   }
 
   /**
    * Places a new piece on the board and requests user input 
    */
-  start(){
+  start = () => {
     this.status = GameStatus.InProgress
     this.placeNew()
     // while(this.status === GameStatus.InProgress){
@@ -62,23 +62,17 @@ export class Game {
   /**
    * requests a move from the player 
    */
-  move() {
-    
-  }
+  move = () => new Error('Not implemented')
 
   /**
    * Displays the board 
    */
-  draw(){
-    console.table(this.board.getBoard())
-  }
+  draw = () => console.table(this.board.getBoard())
   
   /**
    * returns the score 
    */
-  getScore(){
-    return this.score
-  }
+  getScore = () => this.score
 }
 
 
