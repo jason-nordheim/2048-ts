@@ -6,7 +6,6 @@ export class Board {
   private _moves: Array<any>;
   private _tiles: Array<Tile>;
   size: { x: number; y: number };
-  isFull: boolean;
 
   /**
    * Creates a grid with the x-axis of length x
@@ -24,21 +23,26 @@ export class Board {
     // initializes trackers
     this._moves = [];
     this._tiles = [];
-    this.isFull = this._tiles.length >= this.size.x * this.size.y - 1;
+    this.isFull = 
   }
+
+  /*
+   * determines if the board is full based upon the number of placed tiles  
+   */
+  isFull = () => Boolean(this._tiles.length >= ((this.size.x * this.size.y) - 1))
 
   /**
    * calculated roperty that returns the a copy of the board 
    * with all the existing tiles in place. 
    */
-  Board = () => {
+  board = () => {
     // add each title to the board
     for (let i = 0; i < this._tiles.length; i++) {
       this._values[this._tiles[i].x][this._tiles[i].y] = this._tiles[i].value;
     }
     return Object.assign({}, this._values);
   };
-  
+
 
   /**
    * Tries to place a tile on the board
