@@ -5,6 +5,7 @@ export class Grid {
   private _moves: Array<any>
   private _tiles: Array<Tile>
   size: { x: number; y: number };
+  isFull: boolean
 
   /**
    * Creates a grid with the x-axis of length x
@@ -17,11 +18,12 @@ export class Grid {
   constructor(x: number, y: number) {
     // create the grid
     this.size = { x, y };
-    this._values = Array.from(Array(x), () => new Array(y).fill(null))
+    this._values = Array.from(Array(x), () => new Array(y).fill(-1))
 
     // initializes trackers 
     this._moves = [];
     this._tiles = [];
+    this.isFull = this._tiles.length >= ((this.size.x * this.size.y) - 1)
   }
 
   /**
@@ -29,8 +31,9 @@ export class Grid {
    * @param tile
    */
   placeTile(tile: Tile) {
-    if (this.hasTile(tile.x, tile.y)) throw new Error("Cannot place tile on an occupied space");
-    else {
+    if (this.isOccupied(tile.x, tile.y)) {
+      throw new Error("Cannot place tile on an occupied space");
+    } else {
       this._tiles.push(tile);
       this._moves.push({ move: 'placedTile', details: tile})
     }
@@ -41,7 +44,7 @@ export class Grid {
    * @param x x-axis coordinate
    * @param y y-axis coordinate
    */
-  hasTile(x: number, y: number) {
+  isOccupied(x: number, y: number) {
     return this._values[x][y] ? true : false;
   }
 
@@ -52,9 +55,15 @@ export class Grid {
   getBoard(){
     // add each title to the board 
     for(let i = 0; i < this._tiles.length; i++){
-      this._values[this._tiles[i].x][this._tiles[i].y] = Object.assign({}, this._tiles[i].value)
+      this._values[this._tiles[i].x][this._tiles[i].y] = this._tiles[i].value
     }
     return Object.assign({}, this._values)
   }
+
+  slideLeft() {
+    const board = this.getBoard() 
+    
+  }
+
 
 }
