@@ -11,8 +11,8 @@ export class Board {
    * Creates a grid with the x-axis of length x
    * and a y-axis with length y and sets the
    * default value provided
-   * @param x
-   * @param y
+   * @param x 
+   * @param y 
    * @param defaultValue
    */
   constructor(x: number, y: number) {
@@ -23,7 +23,6 @@ export class Board {
     // initializes trackers
     this._moves = [];
     this._tiles = [];
-    this.isFull = 
   }
 
   /*
@@ -44,11 +43,12 @@ export class Board {
   };
 
 
+
   /**
    * Tries to place a tile on the board
-   * @param tile
+   * @param tile 
    */
-  placeTile(tile: Tile) {
+  place(tile: Tile) {
     if (this.isOccupied(tile.x, tile.y)) {
       throw new Error("Cannot place tile on an occupied space");
     } else {
